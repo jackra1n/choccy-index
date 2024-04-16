@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { Product } from "../models/Product";
+import { Product } from "$lib/models/Product";
 
 function getInitialData() {
     if (typeof window !== 'undefined') {
@@ -15,8 +15,8 @@ function createProductStore() {
 
     return {
         subscribe,
-        add: (product) => update(products => [...products, product]),
-        remove: (product) => update(products => products.filter(p => p !== product)),
+        add: (product: Product) => update(products => [...products, product]),
+        remove: (product: Product) => update(products => products.filter((p: Product) => p !== product)),
         clear: () => set([]),
     };
 }
