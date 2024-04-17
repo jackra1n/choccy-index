@@ -15,7 +15,12 @@ function createProductStore() {
 
     return {
         subscribe,
-        add: (product: Product) => update(products => [...products, product]),
+        add: (product: Product) => update(products => {
+            const updatedProducts = [...products, product];
+            if (typeof window !== 'undefined') {
+                window.localStorage.setItem('products', JSON.stringify(updatedProducts))
+            }
+        }),
         remove: (product: Product) => update(products => products.filter((p: Product) => p !== product)),
         clear: () => set([]),
     };

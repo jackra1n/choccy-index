@@ -9,11 +9,11 @@
     import { productsStore } from "./store";
 	import ChoccyProduct from "$lib/components/ChoccyProduct.svelte";
 
-    let brandName: string = '';
-    let productName: string = '';
-    let price: number = 0;
-    let quantity: number = 0;
-    let image: File | null = null;
+    let brandName: string;
+    let productName: string;
+    let price: number;
+    let quantity: number;
+    let image: File | null;
     export let rating: SliderPrimitive.Props["value"] = [5]; 
     
     function addProduct() {
@@ -22,9 +22,8 @@
             return;
         }
         
-        const product = new Product(brandName, productName, price, quantity, image, rating[0]);
-        productsStore.add(product);
-        localStorage.setItem('products', JSON.stringify($productsStore));
+        const newProduct = new Product(brandName, productName, price, quantity, image, rating[0]);
+        productsStore.add(newProduct);
     }
     
 </script>
@@ -39,28 +38,24 @@
             </Card.Header>
             <Card.Content class="grid gap-4">
                 <div class="grid gap-2">
-                    <Label for="name">Brand name</Label>
-                    <Input bind:value={brandName} id="name" placeholder="Brand name of your product" />
+                    <Label for="brandName">Brand name</Label>
+                    <Input bind:value={brandName} id="brandName" placeholder="Brand name of your product" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="name">Product name</Label>
-                    <Input bind:value={productName} id="name" placeholder="Product name of your product" />
+                    <Label for="productName">Product name</Label>
+                    <Input bind:value={productName} id="productName" placeholder="Product name of your product" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="name">Price</Label>
-                    <Input bind:value={price} id="name" placeholder="0.00" />
+                    <Label for="price">Price</Label>
+                    <Input bind:value={price} id="priece" placeholder="0.00" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="name">Amount</Label>
-                    <Input bind:value={quantity} id="name" type="number" min="0" placeholder="Amount in a container in grams" />
+                    <Label for="amount">Amount</Label>
+                    <Input bind:value={quantity} id="amount" type="number" min="0" placeholder="Amount in the container, in grams" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="name">Image</Label>
-                    {#if image}
-                        <!-- svelte-ignore a11y-img-redundant-alt -->
-                        has image
-                        <!-- <img src={URL.createObjectURL(image)} alt="Product image" class="w-full h-40 object-cover rounded-md" /> -->
-                    {/if}
+                    <Label for="image">Image</Label>
+                    <Input id="image" type="file" />
                 </div>
                 <div class="grid gap-2 py-2">
                     <div class="flex items-center justify-between">
