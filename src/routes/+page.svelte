@@ -8,14 +8,14 @@
     import Slider from "$lib/components/ui/slider/slider.svelte";
 	import ChoccyProduct from "$lib/components/ChoccyProduct.svelte";
 
-    let rating: SliderPrimitive.Props["value"] = [5]; 
+    let rating: SliderPrimitive.Props["value"] = [5];
 
 </script>
 
 
-<main class="m-12 flex justify-center">
+<main class="flex justify-center">
     <div class="w-full flex flex-col lg:flex-row">
-        <Card.Root class="min-w-80 m-4 w-full lg:max-w-[460px]">
+        <Card.Root class="m-4 min-w-80 w-full lg:max-w-[460px]">
             <form method="POST" action="?/add" enctype="multipart/form-data" use:enhance>
                 <Card.Header>
                     <Card.Title>New Entry</Card.Title>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="grid gap-2">
                         <Label for="price">Price</Label>
-                        <Input id="price" name="price" placeholder="0.00" />
+                        <Input id="price" name="price" type="number" placeholder="0.00" />
                     </div>
                     <div class="grid gap-2">
                         <Label for="amount">Amount</Label>
@@ -82,7 +82,7 @@
                         {/each}
                     </ul> -->
                 <!-- {:else} -->
-                    <h1 class="text-4xl">There are no entries yet</h1>
+                    <h1 class="text-4xl text-gray-300">There are no entries yet</h1>
                 <!-- {/if} -->
             </Card.Content>
         </Card.Root>
