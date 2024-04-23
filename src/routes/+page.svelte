@@ -7,9 +7,13 @@
     import Label from "$lib/components/ui/label/label.svelte";
     import Slider from "$lib/components/ui/slider/slider.svelte";
 	import ChoccyProduct from "$lib/components/ChoccyProduct.svelte";
+    import type { productType } from "$lib/types/productType";
+    import type { PageData } from "./$types";
+
+    export let data: PageData;
+    let products: productType[] = data.products;
 
     let rating: SliderPrimitive.Props["value"] = [5];
-
 </script>
 
 
@@ -32,7 +36,7 @@
                     </div>
                     <div class="grid gap-2">
                         <Label for="price">Price</Label>
-                        <Input id="price" name="price" type="number" placeholder="0.00" />
+                        <Input id="price" name="price" type="number" step="0.01" placeholder="0.00" />
                     </div>
                     <div class="grid gap-2">
                         <Label for="amount">Amount</Label>
@@ -73,17 +77,17 @@
                 <Card.Description>Overview of all entries</Card.Description>
             </Card.Header>
             <Card.Content>
-                <!-- {#if $productsStore.length > 0}
+                {#if products.length > 0}
                     <ul class="grid gap-4">
-                        {#each $productsStore as product}
+                        {#each products as product}
                             <li class="grid gap-2">
                                 <ChoccyProduct {product} />
                             </li>
                         {/each}
-                    </ul> -->
-                <!-- {:else} -->
+                    </ul>
+                {:else}
                     <h1 class="text-4xl text-gray-300">There are no entries yet</h1>
-                <!-- {/if} -->
+                {/if}
             </Card.Content>
         </Card.Root>
     </div>
