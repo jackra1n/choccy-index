@@ -1,13 +1,27 @@
 import type { PageServerLoad, Actions } from './$types';
 import { Product } from '$lib/models/Product';
 
-export const load = (async () => {
-	return {};
+export const load = (async ({cookies}) => {
+    const user = cookies.get('userid')
+    if (!user) {
+        const uuid = crypto.randomUUID();
+        cookies.set('userid', uuid, { path: '/' });
+        return { user: uuid}
+    }
+	return { user };
 }) satisfies PageServerLoad;
 
 
 export const actions: Actions = {
-    add: async ({request}) => {
+    add: async ({cookies, request}) => {
+        const user = cookies.get('userid');
+        if (!user) {
+            return {
+                status: 401,
+                body: 'Unauthorized'
+            };
+        }
+
         const data = await request.formData();
 
         const brandName = data.get('brandName') as string;
