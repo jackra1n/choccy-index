@@ -5,11 +5,17 @@ import { sql } from 'drizzle-orm';
 
 
 export const load = (async ({cookies}) => {
-    const user = cookies.get('userid');
+    let id = cookies.get('userid');
+
+    if (!id) {
+        id = crypto.randomUUID();
+        cookies.set('userid', id, { path: '/'});
+    }
+
     const products = await db
         .select()
         .from(schema.products)
-        .where(sql`${schema.products.userid} = ${user}`);
+        .where(sql`${schema.products.userid} = ${id}`);
 
 
     return {
@@ -52,7 +58,7 @@ export const actions: Actions = {
                 body: 'No image provided'
             };
         }
-        const imagePath = `static/images/${userid}/${image.name}`;
+        const imagePath = `src/lib/images/${userid}/${image.name}`;
         
         await db.insert(schema.products).values({
             userid,
@@ -65,9 +71,5 @@ export const actions: Actions = {
         });
 
         await Bun.write(imagePath, image);
-        return {
-            status: 200,
-            body: 'Product added'
-        };
     }
 };
