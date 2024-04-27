@@ -36,7 +36,6 @@ export const actions: Actions = {
         }
 
         const data = await request.formData();
-        console.log(data);
 
         const brandName = data.get('brandName') as string;
         const productName = data.get('productName') as string;

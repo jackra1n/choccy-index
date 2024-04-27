@@ -11,7 +11,8 @@
     import type { PageData } from "./$types";
 
     export let data: PageData;
-    let products: productType[] = data.products;
+    let products: productType[];
+    $: products = data.products;
 
     let rating: SliderPrimitive.Props["value"] = [5];
 </script>
@@ -79,7 +80,7 @@
             <Card.Content>
                 {#if products.length > 0}
                     <ul class="grid gap-4">
-                        {#each products as product}
+                        {#each products as product (product.id)}
                             <li class="grid gap-2">
                                 <ChoccyProduct {product} />
                             </li>
