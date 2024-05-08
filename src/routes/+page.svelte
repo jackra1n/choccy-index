@@ -54,14 +54,15 @@
                     </div>
                     <div class="grid gap-2 py-2">
                         <div class="flex items-center justify-between">
-                            <Label for="rating">Rating</Label>
+                            <Label for="ratingSlider">Rating</Label>
                             <span
                                 class="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border"
                             >
                                 {rating}
                             </span>
                         </div>
-                        <Slider id="rating" bind:value={rating} min={1} max={10} step={1}/>
+                        <Input id="ratingInput" name="rating" type="hidden" bind:value={rating} />
+                        <Slider id="ratingSlider" bind:value={rating} min={1} max={10} step={1}/>
                     </div>
                 </Card.Content>
                 <Card.Footer>
