@@ -57,8 +57,8 @@ export const actions: Actions = {
                 body: 'No image provided'
             };
         }
-        const imagePath = `src/lib/images/${userid}/${image.name}`;
         
+        const imagePath = `src/lib/images/${userid}/${image.name}`;
         await db.insert(schema.products).values({
             userid,
             brandName,

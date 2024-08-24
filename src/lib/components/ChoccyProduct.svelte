@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { productType } from "$lib/types/productType";
+    import type { Product } from "$lib/types/Product";
     import * as Card from "$lib/components/ui/card";
 
-    export let product: productType;
+    export let product: Product;
 </script>
 
 <Card.Root class="max-w-[300px]">

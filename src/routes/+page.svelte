@@ -7,12 +7,9 @@
     import Label from "$lib/components/ui/label/label.svelte";
     import Slider from "$lib/components/ui/slider/slider.svelte";
 	import ChoccyProduct from "$lib/components/ChoccyProduct.svelte";
-    import type { productType } from "$lib/types/productType";
     import type { PageData } from "./$types";
 
     export let data: PageData;
-    let products: productType[];
-    $: products = data.products;
 
     let rating: SliderPrimitive.Props["value"] = [5];
 </script>
@@ -79,9 +76,9 @@
                 <Card.Description>Overview of all entries</Card.Description>
             </Card.Header>
             <Card.Content>
-                {#if products.length > 0}
+                {#if data.products.length > 0}
                     <ul class="grid gap-4">
-                        {#each products as product (product.id)}
+                        {#each data.products as product (product.id)}
                             <li class="grid gap-2">
                                 <ChoccyProduct {product} />
                             </li>
