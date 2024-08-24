@@ -4,7 +4,7 @@ import * as schema from '$lib/server/schema';
 import { sql } from 'drizzle-orm';
 
 
-export const load = (async ({cookies}) => {
+export const load: PageServerLoad = async ({cookies}) => {
     let id = cookies.get('userid');
 
     if (!id) {
@@ -22,7 +22,7 @@ export const load = (async ({cookies}) => {
         products
     };
 
-}) satisfies PageServerLoad;
+}
 
 
 export const actions: Actions = {
