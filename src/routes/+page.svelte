@@ -16,8 +16,8 @@
 
 
 <main class="flex justify-center">
-    <div class="w-full flex flex-col lg:flex-row">
-        <Card.Root class="m-4 min-w-80 w-full lg:max-w-[460px]">
+    <div class="w-full flex flex-col lg:flex-row p-4">
+        <Card.Root class="lg:mr-4 min-w-80 w-full lg:max-w-[460px]">
             <form method="POST" action="?/add" enctype="multipart/form-data" use:enhance>
                 <Card.Header>
                     <Card.Title>New Entry</Card.Title>
@@ -70,7 +70,7 @@
             </form>
         </Card.Root>
 
-        <Card.Root class="m-4 w-full lg:w-[80%] min-w-[600px]"> 
+        <Card.Root class="lg:mt-0 mt-4 w-full lg:w-[80%] min-w-[320px]"> 
             <Card.Header>
                 <Card.Title>Entries</Card.Title>
                 <Card.Description>Overview of all entries</Card.Description>

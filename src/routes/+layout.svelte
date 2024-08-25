@@ -7,10 +7,10 @@
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 </script>
 
-<header class="w-100 p-4">
-	<div class="h-[60px] p-3 flex items-center justify-between border shadow-sm rounded-lg">
+<header class="px-4 pt-4">
+	<div class="h-[60px] min-w-[320px] p-3 flex items-center justify-between border shadow-sm rounded-lg">
 		<div>
-			Header
+			Choccy-Index
 		</div>
 		<div>
 			{#if $page.data.session === null}
