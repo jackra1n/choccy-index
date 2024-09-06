@@ -8,5 +8,5 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-src/lib/images/
+static/images/
 sqlite.db

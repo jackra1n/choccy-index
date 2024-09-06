@@ -1,7 +1,9 @@
-import type { PageServerLoad, Actions } from './$types';
+import { fail } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/schema';
 import { sql } from 'drizzle-orm';
+import { mkdir } from 'node:fs/promises';
+import type { PageServerLoad, Actions } from './$types';
 
 export const load: PageServerLoad = async ({ cookies }) => {
 	let id = cookies.get('userid');
@@ -25,10 +27,7 @@ export const actions: Actions = {
 	add: async ({ cookies, request }) => {
 		const userid = cookies.get('userid');
 		if (!userid) {
-			return {
-				status: 401,
-				body: 'Unauthorized'
-			};
+			return fail(401, { error: 'Unauthorized' });
 		}
 
 		const data = await request.formData();
@@ -40,21 +39,19 @@ export const actions: Actions = {
 		const rating = Number(data.get('rating')) || 0;
 
 		if (!brandName || !productName || price <= 0 || amount <= 0) {
-			return {
-				status: 400,
-				body: 'Invalid data'
-			};
+			return fail(400, { error: 'Invalid data' });
 		}
 
 		const image = data.get('image') as File;
 		if (!image) {
-			return {
-				status: 400,
-				body: 'No image provided'
-			};
+			return fail(400, { error: 'No image provided' });
 		}
 
-		const imagePath = `src/lib/images/${userid}/${image.name}`;
+		const uploadDir = `static/images/${userid}`;
+		const imagePath = `${uploadDir}/${image.name}`;
+
+		await mkdir(uploadDir, { recursive: true });
+
 		await db.insert(schema.products).values({
 			userid,
 			brandName,
