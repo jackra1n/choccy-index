@@ -5,12 +5,20 @@ import { sql } from 'drizzle-orm';
 import { mkdir } from 'node:fs/promises';
 import type { PageServerLoad, Actions } from './$types';
 
-export const load: PageServerLoad = async ({ cookies }) => {
-	let id = cookies.get('userid');
+export const load: PageServerLoad = async ({ cookies, locals }) => {
+	const session = await locals.auth();
 
-	if (!id) {
-		id = crypto.randomUUID();
-		cookies.set('userid', id, { path: '/' });
+	let id: string | undefined;
+
+	if (session?.user) {
+		id = (session.user.id || session.user.email) ?? undefined;
+	} else {
+		// Fall back to custom userid cookie if the user is not authenticated
+		id = cookies.get('userid');
+		if (!id) {
+			id = crypto.randomUUID();
+			cookies.set('userid', id, { path: '/' });
+		}
 	}
 
 	const products = await db
@@ -63,5 +71,10 @@ export const actions: Actions = {
 		});
 
 		await Bun.write(imagePath, image);
+
+		return {
+			status: 200,
+			body: { success: true }
+		};
 	}
 };

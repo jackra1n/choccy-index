@@ -32,6 +32,9 @@
 						<DropdownMenu.Group>
 							<DropdownMenu.Label>{$page.data.session?.user?.name}</DropdownMenu.Label>
 							<DropdownMenu.Item>
+								Email: {$page.data.session?.user?.email}
+							</DropdownMenu.Item>
+							<DropdownMenu.Item>
 								<button on:click={signOut}>Signout</button>
 							</DropdownMenu.Item>
 						</DropdownMenu.Group>
